@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+*{
+   font-family: 'Roboto', sans-serif; 
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;  
+}
+
+body{
+   min-height: 100vh;
+   padding: 25px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.container{
+   position: relative;
+   max-width: 700px;
+   width: 100%;
+   padding: 20px;
+   background-color: rgba(0, 255, 255, 0.31);
+   border-radius: 8px;
+
+   
+}
+.container header{
+   font-size: 1.5rem;
+   color: #333;
+   font-weight: 700;
+   text-align: center;
+}
+.container .form{
+   margin-top: 25px;
+}
+.form .input-box{
+   width: 100%;
+   margin-top: 20px;
+}
+.form .input-box input{
+   position: relative;
+   height: 30px;
+   width: 100%;
+   font-size: 1rem;
+   margin-top: 8px;
+   outline: none;
+   border: 1px solid #ddd;
+   border-radius: 6px;
+   padding: 0 15px;
+}
+.form .column{
+   display: flex;
+   column-gap: 15px;
+}
+.form .price{
+   display: flex;
+   column-gap: 15px;
+}
+.select-box{
+   margin-top: 20px;
+   width: 100%;
+}
+.select-box select{
+   position: relative;
+   height: 30px;
+   width: 30%;
+   font-size: 1rem;
+   margin-top: 8px;
+   outline: none;
+   border: 1px solid #ddd;
+   border-radius: 6px;
+   padding: 0 15px;
+   display: flex;
+}
+
+.form button{
+   padding: 5px;
+   margin-top: 17px;
+   border: 1px solid #333;
+   border-radius: 5px;
+   font-size: 13.00pt;
+   font-weight: 700;
+}
+    </style>
+    <title>Order Form</title>
+</head>
+<body>
+    
+    <section class="container">
+        <header>Order Form</header>
+        <form method="post" class="form">
+            {% csrf_token %}
+            <div class="column">
+                <div class="input-box">
+                    <label for="{{ form.order_date.id_for_label }}" >Order date</label>
+                    {{ form.order_date }}
+                </div>
+    
+                <div class="input-box">
+                    <label for="{{ form.invoice_id.id_for_label }}">Invoice ID</label>
+                    {{ form.invoice_id }}
+                </div>
+            </div>
+        
+            <div class="column">
+                <div class="input-box">
+                    <label for="{{ form.client_name.id_for_label }}" >Client Name</label>
+                    {{ form.client_name }}
+                </div>
+    
+                <div class="input-box">
+                    <label for="{{ form.client_name.id_for_label }}" >Email Address</label>
+                    {{ form.email }}
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="input-box">
+                    <label for="{{ form.number.id_for_label }}" >Phone Number</label>
+                    {{ form.number }}
+                </div>
+    
+                <div class="input-box">
+                    <label for="{{ form.address.id_for_label }}" >Address(Country)</label>
+                    {{ form.address }}
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="input-box">
+                    <label for="{{ form.database_name.id_for_label }}" >Database Name</label>
+                    {{ form.database_name }}
+                </div>
+    
+                <div class="input-box">
+                    <label for="{{ form.data_filter_details.id_for_label }}" >Filter or requirements</label>
+                    {{ form.data_filter_details }}
+
+                </div>
+            </div>
+
+            <div class="price">
+                <div class="input-box">
+                    <label for="{{ form.database_quantity.id_for_label }}" >Quantity</label>
+                    {{form.database_quantity}}
+                </div>
+    
+                <div class="input-box">
+                    <label for="{{ form.database_price.id_for_label }}" >Database Price</label>
+                    {{form.database_price}}
+                </div>
+    
+    
+                <div class="input-box">
+                    <label for="{{ form.total_price.id_for_label }}" >Total Price</label>
+                    {{ form.total_price }}
+                </div>
+            </div>
+
+            <div class="select-box">
+                <label for="{{ form.payment_via.id_for_label }}" >Payment Method</label>
+                {{ form.payment_via }}
+                
+            </div>
+
+            <div class="input-box">
+                <label for="{{ form.agent_name.id_for_label }}" >Agent Name</label>
+                {{ form.agent_name }}
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Invoice Form</title>
+</head>
+<body>
+    <h1>Invoice Form</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="{{ form.client_name.id_for_label }}">Client Name:</label>
+            {{ form.client_name }}
+        </div>
+        <div>
+            <label for="{{ form.email.id_for_label }}">Email:</label>
+            {{ form.email }}
+        </div>
+        <div>
+            <label for="{{ form.database_quantity.id_for_label }}">Database Quantity:</label>
+            {{ form.database_quantity }}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html> -->
