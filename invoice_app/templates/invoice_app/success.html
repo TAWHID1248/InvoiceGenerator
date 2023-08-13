@@ -6,6 +6,7 @@
 <body>
     <h1>Success!</h1>
     <p>Your form has been successfully submitted.</p>
-    <a href="{% url 'home' %}">Back to Home</a>
+    <a href="{% url 'download_invoice' invoice_id=invoice_id %}" download>Download Invoice PDF</a>
+    <a href="{% url 'generate_invoice' %}">Back to Home</a>
 </body>
 </html>

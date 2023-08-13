@@ -1,23 +1,5 @@
 from django import forms
 
-# class InvoiceForm(forms.Form):
-#     order_date = forms.DateField()
-#     client_name = forms.CharField(max_length=100)
-#     number = forms.CharField(max_length=20)
-#     email = forms.EmailField()
-#     address = forms.CharField(widget=forms.Textarea)
-#     database_name = forms.CharField(max_length=100)
-#     data_filter_details = forms.CharField(widget=forms.Textarea)
-#     database_quantity = forms.IntegerField(min_value=1)
-#     database_price = forms.DecimalField(max_digits=10, decimal_places=2)
-#     total_price = forms.DecimalField(max_digits=10, decimal_places=2)
-#     payment_via = forms.MultipleChoiceField(choices=[
-#         ('credit_card', 'Credit Card'),
-#         ('paypal', 'PayPal'),
-#         ('bank_transfer', 'Bank Transfer'),
-#         ('cash', 'Cash'),
-#     ], widget=forms.CheckboxSelectMultiple)
-#     agent_name = forms.CharField(max_length=100)
 
 from django import forms
 
@@ -45,3 +27,26 @@ class InvoiceForm(forms.Form):
     )
     agent_name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
 
+
+# from django import forms
+# from .models import InvoiceModel
+
+# class InvoiceForm(forms.ModelForm):
+#     class Meta:
+#         model = InvoiceModel
+#         fields = '__all__'  # Use all fields from the model
+#         widgets = {
+#             'order_date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+#             'invoice_id': forms.TextInput(attrs={'class': 'form-control'}),
+#             'client_name': forms.TextInput(attrs={'class': 'form-control'}),
+#             'number': forms.TextInput(attrs={'class': 'form-control'}),
+#             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'youremail@domain.com'}),
+#             'address': forms.TextInput(attrs={'class': 'form-control'}),
+#             'database_name': forms.TextInput(attrs={'class': 'form-control'}),
+#             'data_filter_details': forms.TextInput(attrs={'class': 'form-control'}),
+#             'database_quantity': forms.TextInput(attrs={'class': 'form-control'}),
+#             'database_price': forms.TextInput(attrs={'class': 'form-control'}),
+#             'total_price': forms.TextInput(attrs={'class': 'form-control'}),
+#             'payment_via': forms.CheckboxSelectMultiple(attrs={'class': 'form-check'}),
+#             'agent_name': forms.TextInput(attrs={'class': 'form-control'}),
+#         }
