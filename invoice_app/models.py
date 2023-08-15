@@ -77,7 +77,7 @@ class InvoiceModel(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
-        if not self.invoice_pdf:  # Generate PDF and store it if not already present
+        if not self.pdf:  # Generate PDF and store it if not already present
             from django.template.loader import get_template
             from xhtml2pdf import pisa
             from io import BytesIO
@@ -89,6 +89,6 @@ class InvoiceModel(models.Model):
             result = BytesIO()
             pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
             if not pdf.err:
-                self.invoice_pdf.save(f'invoice_{self.invoice_id}.pdf', BytesIO(result.getvalue()))
+                self.pdf.save(f'invoice_{self.invoice_id}.pdf', BytesIO(result.getvalue()))
 
             super().save(*args, **kwargs)

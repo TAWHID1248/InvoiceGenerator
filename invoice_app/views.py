@@ -16,11 +16,16 @@ def generate_pdf(data):
     context = {'data': data}
     template = get_template(template_path)
     html = template.render(context)
+
+    # Create a BytesIO buffer to store PDF content
     result = BytesIO()
     pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
+
     if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return None
+        pdf_data = result.getvalue()  # Get the PDF content
+        return pdf_data
+    else:
+        return None
 
 
 
@@ -31,10 +36,17 @@ def generate_invoice(request):
         if form.is_valid():
             data = form.cleaned_data
             pdf_data = generate_pdf(data)
-            response = HttpResponse(pdf_data, content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+            
 
             if pdf_data:
+
+                # Create an HttpResponse with PDF content for download
+                response = HttpResponse(content_type='application/pdf')
+                response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+
+                # Write the PDF content to the response
+                response.write(pdf_data)
+
                 invoice = InvoiceModel(
                     order_date=data['order_date'],
                     invoice_id=data['invoice_id'],
@@ -51,9 +63,13 @@ def generate_invoice(request):
                 )
                 
 
-                pdf_file = ContentFile(pdf_data)
-                pdf_file.name = 'invoice.pdf'
-                invoice.pdf = pdf_file
+                # Save the PDF content directly to the 'pdf' field
+                pdf = ContentFile(pdf_data)
+                pdf.name = 'invoice.pdf'
+                invoice.pdf = pdf
+
+                # Save the instance to the database
+                invoice.save()
 
                 return response
             
