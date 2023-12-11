@@ -55,6 +55,9 @@
    
 
 from django.db import models
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+from io import BytesIO
 
 class InvoiceModel(models.Model):
     order_date = models.DateField()
@@ -78,9 +81,7 @@ class InvoiceModel(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         if not self.pdf:  # Generate PDF and store it if not already present
-            from django.template.loader import get_template
-            from xhtml2pdf import pisa
-            from io import BytesIO
+      
 
             template_path = 'invoice_app/invoice_template.html'
             context = {'data': self}
